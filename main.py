@@ -1,8 +1,7 @@
 import cv2
-import sys
 
-cascadePath = sys.argv[1]
-faceCascade = cv2.CascadeClassifier(cascadePath)
+
+faceCascade = cv2.CascadeClassifier('..\..\..\Downloads\haarcascade_eye.xml')
 
 vid = cv2.VideoCapture(0)
 
