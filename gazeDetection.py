@@ -13,7 +13,7 @@ vid = cv2.VideoCapture(0)
 
 width = int(vid.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(vid.get(cv2.CAP_PROP_FRAME_HEIGHT))
-
+q
 avg_faceW = 11.7
 avg_faceL = 15
 while True:
@@ -28,9 +28,9 @@ while True:
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
 
     for (x, y, w, h) in faces:
-        #F = (x * 151.5) / avg_faceW
-        #distance = (avg_faceW)
-        print("x pixels: " + str(w))
+
+        distance = (avg_faceW*500)/w
+        print("distance: " + str(distance/2.54) + " inches")
         # Define the region of interest for eye detection as the top half of the face
         roi_gray = gray[y:y + h // 2, x:x + w]
         roi_color = frame[y:y + h // 2, x:x + w]
@@ -64,17 +64,17 @@ while True:
                 # Filter out contours that are too small or too large
                 if 10 < contour_area < 110:  # Adjust these values based on your input size
                     # Fit an ellipse around the largest contour (approximate the shape of the eye)
-                    if len(largest_contour) >= 5:  # FitEllipse needs at least 5 points
+                    if len(largest_contour) >= 6:  # FitEllipse needs at least 5 points
                         ellipse = cv2.fitEllipse(largest_contour)
 
                         # Draw the ellipse on the eye region
-                        cv2.ellipse(eye_color, ellipse, (0, 255, 0), 2)
+                        cv2.ellipse(eye_color, ellipse, (0, 255, 0), 1)
 
                         # The center of the ellipse can be considered as the eye's center
                         eye_center = (int(ellipse[0][0]), int(ellipse[0][1]))
 
                         # Draw a dot at the ellipse center
-                        cv2.circle(eye_color, eye_center, 2, (255, 0, 0), 3)
+                        cv2.circle(eye_color, eye_center, 2, (255, 0, 0), 1)
 
                         # Create a circle on the white window to represent where the viewer is looking
                         gaze_x = int(
